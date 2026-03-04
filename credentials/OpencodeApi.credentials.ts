@@ -8,17 +8,29 @@ import type {
 export class OpencodeApi implements ICredentialType {
 	name = 'opencodeApi';
 
-	displayName = 'Opencode API';
+	displayName = 'OpenCode API';
 
-	// Link to your community node's README
-	documentationUrl = 'https://github.com/org/-opencode?tab=readme-ov-file#credentials';
+	documentationUrl = 'https://opencode.ai/docs';
+
+	icon = {
+		light: 'file:../nodes/Opencode/opencode.svg',
+		dark: 'file:../nodes/Opencode/opencode.dark.svg',
+	} as const;
 
 	properties: INodeProperties[] = [
+		{
+			displayName: 'Base URL',
+			name: 'baseUrl',
+			type: 'string',
+			default: 'http://localhost:4096',
+			required: true,
+			description: 'The URL of your OpenCode server',
+		},
 		{
 			displayName: 'Username',
 			name: 'username',
 			type: 'string',
-			default: '',
+			default: 'opencode',
 		},
 		{
 			displayName: 'Password',
@@ -28,6 +40,8 @@ export class OpencodeApi implements ICredentialType {
 				password: true,
 			},
 			default: '',
+			description:
+				'The OPENCODE_SERVER_PASSWORD configured on the server (leave empty if unauthenticated)',
 		},
 	];
 
@@ -43,8 +57,8 @@ export class OpencodeApi implements ICredentialType {
 
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: 'https://api.example.com/v2',
-			url: '/v1/user',
+			baseURL: '={{$credentials.baseUrl}}',
+			url: '/global/health',
 		},
 	};
 }
