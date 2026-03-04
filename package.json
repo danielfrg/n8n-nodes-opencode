@@ -1,9 +1,9 @@
 {
-	"name": "n8n-nodes-opencode",
+	"name": "@danielfrg/n8n-nodes-opencode",
 	"version": "0.1.0",
 	"description": "n8n community node for OpenCode",
 	"license": "MIT",
-	"homepage": "https://opencode.ai",
+	"homepage": "https://github.com/danielfrg/n8n-nodes-opencode.git",
 	"keywords": [
 		"n8n-community-node-package"
 	],
