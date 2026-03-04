@@ -1,5 +1,6 @@
 {
 	"name": "@danielfrg/n8n-nodes-opencode",
+	"packageManager": "pnpm@10.28.0",
 	"version": "0.1.1",
 	"description": "n8n community node for OpenCode",
 	"license": "MIT",
