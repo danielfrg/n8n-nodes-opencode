@@ -1,13 +1,12 @@
 {
 	"name": "@danielfrg/n8n-nodes-opencode",
-	"packageManager": "pnpm@10.28.0",
 	"version": "0.1.1",
 	"description": "n8n community node for OpenCode",
-	"license": "MIT",
-	"homepage": "https://github.com/danielfrg/n8n-nodes-opencode.git",
 	"keywords": [
 		"n8n-community-node-package"
 	],
+	"homepage": "https://github.com/danielfrg/n8n-nodes-opencode.git",
+	"license": "MIT",
 	"author": {
 		"name": "Daniel Rodriguez",
 		"email": "daniel@danielfrg.com"
@@ -16,18 +15,35 @@
 		"type": "git",
 		"url": "https://github.com/danielfrg/n8n-nodes-opencode.git"
 	},
+	"files": [
+		"dist"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"build": "n8n-node build",
 		"build:watch": "tsc --watch",
 		"dev": "n8n-node dev",
-		"lint": "n8n-node lint",
-		"lint:fix": "n8n-node lint --fix",
+		"fmt": "vp fmt --write",
+		"fmt:check": "vp fmt --check",
+		"lint": "vp lint --config oxlint.config.json",
 		"release": "n8n-node release",
 		"prepublishOnly": "n8n-node prerelease"
 	},
-	"files": [
-		"dist"
-	],
+	"dependencies": {
+		"@opencode-ai/sdk": "^1.2.17"
+	},
+	"devDependencies": {
+		"@n8n/node-cli": "*",
+		"eslint": "9.32.0",
+		"release-it": "^19.0.4",
+		"typescript": "5.9.2"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	},
+	"packageManager": "pnpm@10.28.0",
 	"n8n": {
 		"n8nNodesApiVersion": 1,
 		"strict": true,
@@ -37,21 +53,5 @@
 		"nodes": [
 			"dist/nodes/Opencode/Opencode.node.js"
 		]
-	},
-	"dependencies": {
-		"@opencode-ai/sdk": "^1.2.17"
-	},
-	"devDependencies": {
-		"@n8n/node-cli": "*",
-		"eslint": "9.32.0",
-		"prettier": "3.6.2",
-		"release-it": "^19.0.4",
-		"typescript": "5.9.2"
-	},
-	"peerDependencies": {
-		"n8n-workflow": "*"
-	},
-	"publishConfig": {
-		"access": "public"
 	}
 }

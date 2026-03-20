@@ -29,21 +29,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v4
+      - uses: voidzero-dev/setup-vp@v1
         with:
-          node-version: '22'
-          cache: pnpm
+          cache: true
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: vp install --frozen-lockfile
 
-      - name: Run lint
-        run: pnpm run lint
+      - name: Format check
+        run: vp fmt --check
 
-      - name: Run build
-        run: pnpm run build
+      - name: Lint
+        run: vp lint --config oxlint.config.json
+
+      - name: Build
+        run: vp run build
 
   release:
     name: Publish to npm
@@ -55,32 +55,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
+      - uses: voidzero-dev/setup-vp@v1
+        with:
+          cache: true
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
-          cache: pnpm
           registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: vp install --frozen-lockfile
 
       - name: Set package version
-        run: pnpm pkg set version=${{ inputs.version }}
+        run: vp exec pnpm pkg set version=${{ inputs.version }}
 
       - name: Build
-        run: pnpm run build
+        run: vp run build
 
       - name: Publish to npm (dry run)
         if: ${{ inputs.dry-run }}
-        run: pnpm publish --tag ${{ inputs.tag }} --dry-run --no-git-checks
+        run: vp exec pnpm publish --tag ${{ inputs.tag }} --dry-run --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to npm
         if: ${{ !inputs.dry-run }}
-        run: pnpm publish --tag ${{ inputs.tag }} --no-git-checks
+        run: vp exec pnpm publish --tag ${{ inputs.tag }} --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
